@@ -35,9 +35,9 @@ jobs:
           days=1
           date=$(date -d "-$days days" +%Y-%m-%dT%H:%M:%SZ)
           echo "Deleting artifacts older than $days days"
-          for artifact_id in $(gh api repos/JustcallD/pythonwebapp/actions/artifacts --paginate -q '.artifacts[] | select(.expired == false and .created_at < "'$date'") | .id'); do
+          for artifact_id in $(gh api repos/shubhanginannaware/pythonwebapp/actions/artifacts --paginate -q '.artifacts[] | select(.expired == false and .created_at < "'$date'") | .id'); do
             echo "Deleting artifact $artifact_id"
-            gh api --method DELETE repos/JustcallD/pythonwebapp/actions/artifacts/$artifact_id
+            gh api --method DELETE repos/shubhanginannaware/pythonwebapp/actions/artifacts/$artifact_id
           done
 
       - name: List artifacts after deletion
@@ -45,4 +45,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SHUBHI_TOKEN_GITHUB }}
         run: |
           echo "Listing all artifacts after deletion:"
-          gh api repos/JustcallD/pythonwebapp/actions/artifacts --paginate -q '.artifacts[] | {id: .id, name: .name, created_at: .created_at, expired: .expired}'
+          gh api repos/shubhanginannaware/pythonwebapp/actions/artifacts --paginate -q '.artifacts[] | {id: .id, name: .name, created_at: .created_at, expired: .expired}'
